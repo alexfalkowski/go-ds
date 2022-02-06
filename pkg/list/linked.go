@@ -6,7 +6,7 @@ type LinkedNode struct {
 	next *LinkedNode
 }
 
-// LinkedList a linear collection of data elements whose order is not given by their physical placement in memory.
+// LinkedList a linear collection of data nodes.
 type LinkedList struct {
 	head   *LinkedNode
 	tail   *LinkedNode
@@ -52,6 +52,28 @@ func (l *LinkedList) RemoveHead() *LinkedNode {
 	l.head = head
 
 	return prevHead
+}
+
+// AddTail to the linked list.
+func (l *LinkedList) AddTail(data interface{}) *LinkedNode {
+	if data == nil {
+		return nil
+	}
+
+	l.length++
+
+	node := &LinkedNode{Data: data}
+
+	if l.tail == nil {
+		l.tail = node
+		l.head = node
+	} else {
+		prevTail := l.tail
+		l.tail = node
+		prevTail.next = node
+	}
+
+	return node
 }
 
 // Length of the Length

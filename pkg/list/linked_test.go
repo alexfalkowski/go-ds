@@ -71,3 +71,36 @@ func TestLinkedRemoveSingleHead(t *testing.T) {
 		})
 	})
 }
+
+func TestLinkedAddTail(t *testing.T) {
+	Convey("Given I have an empty linked list", t, func() {
+		lst := list.NewLinkedList()
+
+		Convey("When I add a new tail to the linked list", func() {
+			tail := lst.AddTail(1)
+
+			Convey("Then I should have a single node", func() {
+				So(tail, ShouldNotBeNil)
+				So(tail.Data, ShouldEqual, 1)
+				So(lst.Length(), ShouldEqual, 1)
+			})
+		})
+	})
+}
+
+func TestLinkedAddDoubleTail(t *testing.T) {
+	Convey("Given I have a single node linked list", t, func() {
+		lst := list.NewLinkedList()
+		lst.AddTail(1)
+
+		Convey("When I add a new head to the linked list", func() {
+			tail := lst.AddTail(2)
+
+			Convey("Then I should have a single node", func() {
+				So(tail, ShouldNotBeNil)
+				So(tail.Data, ShouldEqual, 2)
+				So(lst.Length(), ShouldEqual, 2)
+			})
+		})
+	})
+}
