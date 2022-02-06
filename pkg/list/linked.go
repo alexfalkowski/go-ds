@@ -17,6 +17,38 @@ func NewLinkedList() *LinkedList {
 	return &LinkedList{}
 }
 
+// Add the data at an index.
+func (l *LinkedList) Add(index uint64, data interface{}) *LinkedNode {
+	if index > l.length || data == nil {
+		return nil
+	}
+
+	if index == 0 {
+		return l.AddHead(data)
+	}
+
+	if index == l.length {
+		return l.AddTail(data)
+	}
+
+	current := l.head
+
+	var i uint64
+
+	for i = 1; i < index; i++ {
+		current = current.next
+	}
+
+	l.length++
+
+	node := &LinkedNode{Data: data}
+
+	node.next = current.next
+	current.next = node
+
+	return node
+}
+
 // AddHead to the linked list.
 func (l *LinkedList) AddHead(data interface{}) *LinkedNode {
 	if data == nil {
@@ -96,27 +128,6 @@ func (l *LinkedList) RemoveTail() *LinkedNode {
 	prevTail.next = nil
 
 	return tail
-}
-
-// Find data in the linked list.
-func (l *LinkedList) Find(data interface{}) *LinkedNode {
-	if l.head == nil {
-		return nil
-	}
-
-	node := l.head
-	if node.Data == data {
-		return node
-	}
-
-	for node.next != nil {
-		node = node.next
-		if node.Data == data {
-			return node
-		}
-	}
-
-	return nil
 }
 
 // Length of the Length

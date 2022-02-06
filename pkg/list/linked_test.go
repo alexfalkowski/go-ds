@@ -7,6 +7,82 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
+func TestLinkedAddInvalid(t *testing.T) {
+	Convey("Given I have an empty linked list", t, func() {
+		lst := list.NewLinkedList()
+
+		Convey("When I add data with invalid index to the linked list", func() {
+			node := lst.Add(0, nil)
+
+			Convey("Then I should have no node", func() {
+				So(node, ShouldBeNil)
+				So(lst.Length(), ShouldEqual, 0)
+			})
+		})
+
+		Convey("When I add invalid data with index to the linked list", func() {
+			node := lst.Add(1, 1)
+
+			Convey("Then I should have no node", func() {
+				So(node, ShouldBeNil)
+				So(lst.Length(), ShouldEqual, 0)
+			})
+		})
+	})
+}
+
+func TestLinkedAddValid(t *testing.T) {
+	Convey("Given I have an empty linked list", t, func() {
+		lst := list.NewLinkedList()
+
+		Convey("When I add data with index to the linked list", func() {
+			node := lst.Add(0, 1)
+
+			Convey("Then I should have a node", func() {
+				So(node, ShouldNotBeNil)
+				So(node.Data, ShouldEqual, 1)
+				So(lst.Length(), ShouldEqual, 1)
+			})
+		})
+	})
+}
+
+func TestLinkedAddDoubleValid(t *testing.T) {
+	Convey("Given I have a single node linked list", t, func() {
+		lst := list.NewLinkedList()
+		lst.Add(0, 1)
+
+		Convey("When I add data with index to the linked list", func() {
+			node := lst.Add(1, 2)
+
+			Convey("Then I should have a node", func() {
+				So(node, ShouldNotBeNil)
+				So(node.Data, ShouldEqual, 2)
+				So(lst.Length(), ShouldEqual, 2)
+			})
+		})
+	})
+}
+
+func TestLinkedAddMultipleValid(t *testing.T) {
+	Convey("Given I have a multiple node linked list", t, func() {
+		lst := list.NewLinkedList()
+		lst.Add(0, 1)
+		lst.Add(1, 2)
+		lst.Add(2, 3)
+
+		Convey("When I add data with index to the linked list", func() {
+			node := lst.Add(2, 4)
+
+			Convey("Then I should have a node", func() {
+				So(node, ShouldNotBeNil)
+				So(node.Data, ShouldEqual, 4)
+				So(lst.Length(), ShouldEqual, 4)
+			})
+		})
+	})
+}
+
 func TestLinkedAddInvalidHead(t *testing.T) {
 	Convey("Given I have an empty linked list", t, func() {
 		lst := list.NewLinkedList()
@@ -234,68 +310,6 @@ func TestLinkedRemoveMultipleTail(t *testing.T) {
 				So(tail, ShouldNotBeNil)
 				So(tail.Data, ShouldEqual, 2)
 				So(lst.Length(), ShouldEqual, 1)
-			})
-		})
-	})
-}
-
-func TestLinkedFindInEmpty(t *testing.T) {
-	Convey("Given I have an empty linked list", t, func() {
-		lst := list.NewLinkedList()
-
-		Convey("When I look for a non existent node", func() {
-			node := lst.Find(1)
-
-			Convey("Then I should have not node", func() {
-				So(node, ShouldBeNil)
-			})
-		})
-	})
-}
-
-func TestLinkedFindNode(t *testing.T) {
-	Convey("Given I have a single node linked list", t, func() {
-		lst := list.NewLinkedList()
-		lst.AddTail(1)
-
-		Convey("When I look for a non existent node", func() {
-			node := lst.Find(1)
-
-			Convey("Then I should have found an node", func() {
-				So(node, ShouldNotBeNil)
-				So(node.Data, ShouldEqual, 1)
-			})
-		})
-	})
-}
-
-func TestLinkedFindMultipleNode(t *testing.T) {
-	Convey("Given I have a single node linked list", t, func() {
-		lst := list.NewLinkedList()
-		lst.AddTail(1)
-		lst.AddTail(2)
-
-		Convey("When I look for a non existent node", func() {
-			node := lst.Find(2)
-
-			Convey("Then I should have found an node", func() {
-				So(node, ShouldNotBeNil)
-				So(node.Data, ShouldEqual, 2)
-			})
-		})
-	})
-}
-
-func TestLinkedFindNonExistentNode(t *testing.T) {
-	Convey("Given I have a single node linked list", t, func() {
-		lst := list.NewLinkedList()
-		lst.AddTail(1)
-
-		Convey("When I look for a non existent node", func() {
-			node := lst.Find(2)
-
-			Convey("Then I should have not node", func() {
-				So(node, ShouldBeNil)
 			})
 		})
 	})
