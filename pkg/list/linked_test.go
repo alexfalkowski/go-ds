@@ -89,7 +89,7 @@ func TestLinkedRemoveHead(t *testing.T) {
 }
 
 func TestLinkedRemoveSingleHead(t *testing.T) {
-	Convey("Given I have a single element linked list", t, func() {
+	Convey("Given I have a single node linked list", t, func() {
 		lst := list.NewLinkedList()
 		lst.AddHead(1)
 
@@ -106,7 +106,7 @@ func TestLinkedRemoveSingleHead(t *testing.T) {
 }
 
 func TestLinkedRemoveMultipleHead(t *testing.T) {
-	Convey("Given I have a multiple element linked list", t, func() {
+	Convey("Given I have a multiple node linked list", t, func() {
 		lst := list.NewLinkedList()
 		lst.AddHead(1)
 		lst.AddHead(2)
@@ -205,7 +205,7 @@ func TestLinkedRemoveTail(t *testing.T) {
 }
 
 func TestLinkedRemoveSingleTail(t *testing.T) {
-	Convey("Given I have a single element linked list", t, func() {
+	Convey("Given I have a single node linked list", t, func() {
 		lst := list.NewLinkedList()
 		lst.AddTail(1)
 
@@ -222,7 +222,7 @@ func TestLinkedRemoveSingleTail(t *testing.T) {
 }
 
 func TestLinkedRemoveMultipleTail(t *testing.T) {
-	Convey("Given I have a single element linked list", t, func() {
+	Convey("Given I have a single node linked list", t, func() {
 		lst := list.NewLinkedList()
 		lst.AddTail(1)
 		lst.AddTail(2)
@@ -234,6 +234,68 @@ func TestLinkedRemoveMultipleTail(t *testing.T) {
 				So(tail, ShouldNotBeNil)
 				So(tail.Data, ShouldEqual, 2)
 				So(lst.Length(), ShouldEqual, 1)
+			})
+		})
+	})
+}
+
+func TestLinkedFindInEmpty(t *testing.T) {
+	Convey("Given I have an empty linked list", t, func() {
+		lst := list.NewLinkedList()
+
+		Convey("When I look for a non existent node", func() {
+			node := lst.Find(1)
+
+			Convey("Then I should have not node", func() {
+				So(node, ShouldBeNil)
+			})
+		})
+	})
+}
+
+func TestLinkedFindNode(t *testing.T) {
+	Convey("Given I have a single node linked list", t, func() {
+		lst := list.NewLinkedList()
+		lst.AddTail(1)
+
+		Convey("When I look for a non existent node", func() {
+			node := lst.Find(1)
+
+			Convey("Then I should have found an node", func() {
+				So(node, ShouldNotBeNil)
+				So(node.Data, ShouldEqual, 1)
+			})
+		})
+	})
+}
+
+func TestLinkedFindMultipleNode(t *testing.T) {
+	Convey("Given I have a single node linked list", t, func() {
+		lst := list.NewLinkedList()
+		lst.AddTail(1)
+		lst.AddTail(2)
+
+		Convey("When I look for a non existent node", func() {
+			node := lst.Find(2)
+
+			Convey("Then I should have found an node", func() {
+				So(node, ShouldNotBeNil)
+				So(node.Data, ShouldEqual, 2)
+			})
+		})
+	})
+}
+
+func TestLinkedFindNonExistentNode(t *testing.T) {
+	Convey("Given I have a single node linked list", t, func() {
+		lst := list.NewLinkedList()
+		lst.AddTail(1)
+
+		Convey("When I look for a non existent node", func() {
+			node := lst.Find(2)
+
+			Convey("Then I should have not node", func() {
+				So(node, ShouldBeNil)
 			})
 		})
 	})

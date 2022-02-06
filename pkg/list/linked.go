@@ -98,6 +98,27 @@ func (l *LinkedList) RemoveTail() *LinkedNode {
 	return tail
 }
 
+// Find data in the linked list.
+func (l *LinkedList) Find(data interface{}) *LinkedNode {
+	if l.head == nil {
+		return nil
+	}
+
+	node := l.head
+	if node.Data == data {
+		return node
+	}
+
+	for node.next != nil {
+		node = node.next
+		if node.Data == data {
+			return node
+		}
+	}
+
+	return nil
+}
+
 // Length of the Length
 func (l *LinkedList) Length() uint64 {
 	return l.length
