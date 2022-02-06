@@ -9,7 +9,6 @@ type LinkedNode struct {
 // LinkedList a linear collection of data nodes.
 type LinkedList struct {
 	head   *LinkedNode
-	tail   *LinkedNode
 	length uint64
 }
 
@@ -30,7 +29,6 @@ func (l *LinkedList) AddHead(data interface{}) *LinkedNode {
 
 	if l.head == nil {
 		l.head = node
-		l.tail = node
 	} else {
 		node.next = l.head
 		l.head = node
@@ -64,16 +62,40 @@ func (l *LinkedList) AddTail(data interface{}) *LinkedNode {
 
 	node := &LinkedNode{Data: data}
 
-	if l.tail == nil {
-		l.tail = node
+	if l.head == nil {
 		l.head = node
 	} else {
-		prevTail := l.tail
-		l.tail = node
-		prevTail.next = node
+		tail := l.head
+
+		for tail.next != nil {
+			tail = tail.next
+		}
+
+		tail.next = node
 	}
 
 	return node
+}
+
+// RemoveTail from the linked list.
+func (l *LinkedList) RemoveTail() *LinkedNode {
+	if l.head == nil {
+		return nil
+	}
+
+	l.length--
+
+	prevTail := l.head
+	tail := l.head
+
+	for tail.next != nil {
+		prevTail = tail
+		tail = tail.next
+	}
+
+	prevTail.next = nil
+
+	return tail
 }
 
 // Length of the Length
