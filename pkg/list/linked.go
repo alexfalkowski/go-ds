@@ -20,6 +20,10 @@ func NewLinkedList() *LinkedList {
 
 // AddHead to the linked list.
 func (l *LinkedList) AddHead(data interface{}) *LinkedNode {
+	if data == nil {
+		return nil
+	}
+
 	l.length++
 
 	node := &LinkedNode{Data: data}
@@ -33,6 +37,21 @@ func (l *LinkedList) AddHead(data interface{}) *LinkedNode {
 	}
 
 	return node
+}
+
+// RemoveHead from the linked list.
+func (l *LinkedList) RemoveHead() *LinkedNode {
+	if l.head == nil {
+		return nil
+	}
+
+	l.length--
+
+	prevHead := l.head
+	head := prevHead.next
+	l.head = head
+
+	return prevHead
 }
 
 // Length of the Length

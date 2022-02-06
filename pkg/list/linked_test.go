@@ -39,3 +39,35 @@ func TestLinkedAddDoubleHead(t *testing.T) {
 		})
 	})
 }
+
+func TestLinkedRemoveHead(t *testing.T) {
+	Convey("Given I have an empty linked list", t, func() {
+		lst := list.NewLinkedList()
+
+		Convey("When I remove the head from the linked list", func() {
+			head := lst.RemoveHead()
+
+			Convey("Then I should have no head", func() {
+				So(head, ShouldBeNil)
+				So(lst.Length(), ShouldEqual, 0)
+			})
+		})
+	})
+}
+
+func TestLinkedRemoveSingleHead(t *testing.T) {
+	Convey("Given I have an empty linked list", t, func() {
+		lst := list.NewLinkedList()
+		lst.AddHead(1)
+
+		Convey("When I remove the head from the linked list", func() {
+			head := lst.RemoveHead()
+
+			Convey("Then I should have no head", func() {
+				So(head, ShouldNotBeNil)
+				So(head.Data, ShouldEqual, 1)
+				So(lst.Length(), ShouldEqual, 0)
+			})
+		})
+	})
+}
