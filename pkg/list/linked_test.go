@@ -83,6 +83,75 @@ func TestLinkedAddMultipleValid(t *testing.T) {
 	})
 }
 
+func TestLinkedRemoveEmpty(t *testing.T) {
+	Convey("Given I have an empty linked list", t, func() {
+		lst := list.NewLinkedList()
+
+		Convey("When I try to remove at index 0", func() {
+			node := lst.Remove(0)
+
+			Convey("Then I should have no node", func() {
+				So(node, ShouldBeNil)
+				So(lst.Length(), ShouldEqual, 0)
+			})
+		})
+	})
+}
+
+func TestLinkedRemoveSingle(t *testing.T) {
+	Convey("Given I have a single node linked list", t, func() {
+		lst := list.NewLinkedList()
+		lst.Add(0, 1)
+
+		Convey("When I remove the head from the linked list", func() {
+			node := lst.Remove(0)
+
+			Convey("Then I should have the head", func() {
+				So(node, ShouldNotBeNil)
+				So(node.Data, ShouldEqual, 1)
+				So(lst.Length(), ShouldEqual, 0)
+			})
+		})
+	})
+}
+
+func TestLinkedRemoveDouble(t *testing.T) {
+	Convey("Given I have a single node linked list", t, func() {
+		lst := list.NewLinkedList()
+		lst.Add(0, 1)
+		lst.Add(1, 2)
+
+		Convey("When I remove the head from the linked list", func() {
+			node := lst.Remove(1)
+
+			Convey("Then I should have the head", func() {
+				So(node, ShouldNotBeNil)
+				So(node.Data, ShouldEqual, 2)
+				So(lst.Length(), ShouldEqual, 1)
+			})
+		})
+	})
+}
+
+func TestLinkedRemoveMultiple(t *testing.T) {
+	Convey("Given I have a multiple node linked list", t, func() {
+		lst := list.NewLinkedList()
+		lst.Add(0, 1)
+		lst.Add(1, 2)
+		lst.Add(2, 3)
+
+		Convey("When I remove the head from the linked list", func() {
+			node := lst.Remove(1)
+
+			Convey("Then I should have the head", func() {
+				So(node, ShouldNotBeNil)
+				So(node.Data, ShouldEqual, 2)
+				So(lst.Length(), ShouldEqual, 2)
+			})
+		})
+	})
+}
+
 func TestLinkedAddInvalidHead(t *testing.T) {
 	Convey("Given I have an empty linked list", t, func() {
 		lst := list.NewLinkedList()

@@ -49,6 +49,38 @@ func (l *LinkedList) Add(index uint64, data interface{}) *LinkedNode {
 	return node
 }
 
+// Remove at an index.
+func (l *LinkedList) Remove(index uint64) *LinkedNode {
+	if index >= l.length {
+		return nil
+	}
+
+	if index == 0 {
+		return l.RemoveHead()
+	}
+
+	if index == l.length-1 {
+		return l.RemoveTail()
+	}
+
+	l.length--
+
+	prevCurrent := l.head
+	current := l.head
+
+	var i uint64
+
+	for i = 0; i < index; i++ {
+		prevCurrent = current
+		current = current.next
+	}
+
+	prevCurrent.next = current.next
+	current.next = nil
+
+	return current
+}
+
 // AddHead to the linked list.
 func (l *LinkedList) AddHead(data interface{}) *LinkedNode {
 	if data == nil {
@@ -80,6 +112,7 @@ func (l *LinkedList) RemoveHead() *LinkedNode {
 	prevHead := l.head
 	head := prevHead.next
 	l.head = head
+	prevHead.next = nil
 
 	return prevHead
 }
