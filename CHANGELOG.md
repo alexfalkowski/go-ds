@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/alexfalkowski/go-ds/compare/v1.2.0...v1.3.0) (2022-02-12)
+
+
+### Features
+
+* **stack:** linked ([#3](https://github.com/alexfalkowski/go-ds/issues/3)) ([ebb9331](https://github.com/alexfalkowski/go-ds/commit/ebb9331b423ebaf7e3169234ddaa53aaaa9a0db9))
+
 ## [1.2.0](https://github.com/alexfalkowski/go-ds/compare/v1.1.0...v1.2.0) (2022-02-07)
 
 
